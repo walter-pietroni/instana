@@ -1,0 +1,46 @@
+# Host
+# Instana will by default only monitor local filesystems. It is possible to
+# explicitly list the remote filesystems that shall be monitored.
+# The name for the config setting is the device name, that is the first column
+# in mtab / df
+com.instana.plugin.host:
+  tags:
+    - 'walter'
+#    - 'app1'
+#  filesystems:
+#    - 'server:/usr/local/pub'
+#    - 'tmpfs:/mount/point/path'
+#  collectInstalledSoftware: true # [true, false]
+#  collectSystemId: false
+#  aixEventsPollRate: 900 # (Optional) Only for AIX systems. Setting a value to 900 seconds or larger will enable error report event collection and removing it will stop it.
+#  Regular expressions that identify network interfaces to include or exclude. If both are defined, exclusive regex has priority over inclusive regex.
+#  interface-inclusive-regex: '' # Regex pattern for matching network interface names to include
+#  interface-exclusive-regex: '' # Regex pattern for matching network interface names to exclude
+
+# Hardware & Zone
+com.instana.plugin.generic.hardware:
+  enabled: true # disabled by gefault
+  availability-zone: 'WALLYX'
+
+
+
+com.instana.plugin.ibmmq:
+  enabled: true
+  poll_rate: 60 # Default is 60 seconds, and the minimum value is 30 seconds.
+#  support_ha: false # true or false. The default value is false.
+  queueManagers: # Multiple Queue Manager instances can be specified for both local and remote. For Instana agent on OCP, only local Queue Manager can be monitored.
+    QM167150:
+      #     host: 'gundam1.fyre.ibm.com'
+      # port: '1414'
+      # channel: 'INSTANA.SVRCONN'
+      username: 'ansible'
+      password: 'ansible'
+
+
+# General Tracing Settings
+com.instana.tracing:
+  extra-http-headers:
+#    # List of extra headers that should be captured by Instana.
+#    # Will be matched using case-insensitive match.
+#    - 'x-loadtest-id'
+    - 'dp-user-id'
